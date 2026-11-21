@@ -16,6 +16,7 @@ private val log = KotlinLogging.logger {}
 private fun ephemeralCommand(command: String, description: String): BotCommand =
     BotCommand.builder().command(command).description(description).isEphemeral(true).build()
 
+internal const val HELP_COMMAND = "help"
 internal const val TASKS_COMMAND = "tasks"
 internal const val CLEAR_COMMAND = "clear"
 internal const val STOP_COMMAND = "stop"
@@ -39,6 +40,7 @@ internal suspend fun TelegramClient.publishCommandMenu(sandbox: Boolean) {
         // them plain. a stop stays in the open on purpose: the chat sees why the bot fell silent.
         fun commands(personal: (String, String) -> BotCommand): List<BotCommand> =
             listOfNotNull(
+                BotCommand(HELP_COMMAND, "Eylül hakkında yardım"),
                 personal(TASKS_COMMAND, messages.tasksCommandDescription),
                 personal(CLEAR_COMMAND, messages.clearCommandDescription),
                 BotCommand(STOP_COMMAND, messages.stopCommandDescription),

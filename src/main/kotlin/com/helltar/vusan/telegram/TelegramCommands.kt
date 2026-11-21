@@ -58,7 +58,11 @@ internal class TelegramCommands(
         }
 
         when (command.command) {
-            START_COMMAND -> delivery.sendReply(message, Messages.of(message.language).startReply)
+            START_COMMAND -> delivery.sendWelcome(message, Messages.of(message.language).startReply)
+            HELP_COMMAND -> delivery.sendWelcome(
+                message,
+                "Eylül komutları:\\n/start — Botu başlat\\n/help — Yardım\\n/tasks — Görevler\\n/clear — Sohbet hafızasını temizle\\n/stop — Devam eden yanıtı durdur",
+            )
             TASKS_COMMAND -> sendTaskMenu(message)
             CLEAR_COMMAND -> clear(message)
             STOP_COMMAND -> stop(message)
@@ -208,7 +212,8 @@ internal class TelegramCommands(
 
     private companion object {
         const val START_COMMAND = "start"
-        val NAMES = setOf(START_COMMAND, TASKS_COMMAND, CLEAR_COMMAND, STOP_COMMAND)
+        const val HELP_COMMAND = "help"
+        val NAMES = setOf(START_COMMAND, HELP_COMMAND, TASKS_COMMAND, CLEAR_COMMAND, STOP_COMMAND)
 
         val log = KotlinLogging.logger {}
     }
