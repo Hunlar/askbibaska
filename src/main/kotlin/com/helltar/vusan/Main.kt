@@ -83,7 +83,7 @@ private const val HTTP_PORT = 80
 private const val HTTPS_PORT = 443
 
 suspend fun main() = coroutineScope {
-    log.info { "Starting Vusan ${appVersion()}" }
+    log.info { "Starting Eylül ${appVersion()}" }
 
     val config = AppConfig.fromEnv()
 
