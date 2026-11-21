@@ -38,6 +38,9 @@ import kotlin.time.Duration.Companion.milliseconds
 import org.telegram.telegrambots.meta.api.methods.ActionType
 import org.telegram.telegrambots.meta.api.methods.ParseMode
 import org.telegram.telegrambots.meta.api.methods.send.SendChatAction
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton
 import org.telegram.telegrambots.meta.api.objects.ReplyParameters
 import org.telegram.telegrambots.meta.api.objects.ephemeral.EphemeralMessageParameters
 import org.telegram.telegrambots.meta.api.objects.message.Message
@@ -289,6 +292,27 @@ class TelegramDelivery(
                 replyParameters = replyParameters(anchor),
             )
         }
+    }
+
+    /** Sends the welcome/help text with the project's public developer link. */
+    suspend fun sendWelcome(message: Message, text: String) {
+        val developerButton =
+            InlineKeyboardButton.builder()
+                .text("{ Developer }")
+                .url("https://t.me/sancakmain")
+                .build()
+        val keyboard =
+            InlineKeyboardMarkup.builder()
+                .keyboard(listOf(listOf(developerButton)))
+                .build()
+        val request =
+            SendMessage.builder()
+                .chatId(message.chatIdLong.toString())
+                .text(text)
+                .replyMarkup(keyboard)
+                .build()
+
+        api { client.executeAsync(request) }
     }
 
     /**
