@@ -1,0 +1,40 @@
+{
+  "name": "Eylul Telegram Bot",
+  "description": "Eylül adlı Telegram yapay zeka botu. Heroku Container Stack üzerinde worker olarak çalışır.",
+  "keywords": [
+    "telegram",
+    "bot",
+    "kotlin",
+    "docker"
+  ],
+  "stack": "container",
+  "formation": {
+    "worker": {
+      "quantity": 1,
+      "size": "basic"
+    }
+  },
+  "env": {
+    "TELEGRAM_BOT_TOKEN": {
+      "description": "BotFather üzerinden alınan Telegram bot tokenı.",
+      "required": true
+    },
+    "OWNER_ID": {
+      "description": "Bot sahibinin Telegram kullanıcı ID numarası.",
+      "required": true
+    },
+    "LLM_PROVIDER": {
+      "description": "Kullanılacak dil modeli sağlayıcısı (ör. openai, anthropic, google, deepseek, openrouter).",
+      "required": true,
+      "value": "openai"
+    },
+    "LLM_MODEL": {
+      "description": "Seçtiğin sağlayıcıdaki model adı.",
+      "required": true
+    },
+    "LLM_API_KEY": {
+      "description": "Seçtiğin LLM sağlayıcısının API anahtarı.",
+      "required": true
+    }
+  }
+}
